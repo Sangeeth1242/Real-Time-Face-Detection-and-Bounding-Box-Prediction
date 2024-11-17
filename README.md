@@ -23,8 +23,13 @@
 12. [Key Features](#key-features)
 13. [Conclusion](#conclusion)
 
+---
+
 ## Overview
 This project implements a FaceTracker model for face detection and bounding box prediction using deep learning. The model utilizes a VGG16 backbone pre-trained on ImageNet, with custom layers for face classification and bounding box regression. The training pipeline includes image preprocessing, augmentation, and label handling for object detection tasks. The model is trained on augmented data, with separate datasets for training, validation, and testing. After training, it can be used for real-time face detection via webcam, drawing bounding boxes around detected faces. The project focuses on processing images, annotations, and performing data augmentation for training the model.
+
+---
+
 ## Requirements
 
 To run the code, you will need the following dependencies:
@@ -39,6 +44,8 @@ Install the required libraries using:
 ```bash
 pip install opencv-python tensorflow albumentations matplotlib
 ```
+
+---
 
 ## Image Augmentation and Label Transfer
 
@@ -70,6 +77,8 @@ For each image in the `train`, `test`, and `val` datasets, 60 augmented versions
 ### 7. **Error Handling**
 The script includes error handling to ensure that augmentation is performed correctly, and the program continues execution even in case of errors. If no label file exists for an image, a default annotation with empty bounding boxes is generated.
 
+---
+
 ## Folder Structure
 
 The directory structure is as follows:
@@ -95,17 +104,25 @@ aug_data/                  # Augmented data (images and labels)
 └── labels/                # Store original label files
 ```
 
+---
+
 ## Image Preprocessing
 The images are loaded from the dataset and resized to 120x120 pixels for consistent input to the model. The pixel values are normalized to the range [0,1] for better model performance. The images are stored in `aug_data/train/images`, `aug_data/test/images`, and `aug_data/val/images` for training, testing, and validation respectively.
 
+---
+
 ## Label Parsing
 The dataset also includes label files in JSON format stored in `aug_data/train/labels`, `aug_data/test/labels`, and `aug_data/val/labels`. These files contain information about the class (e.g., whether there is a face or not) and the bounding box coordinates. These labels are loaded and processed to match the images.
+
+---
 
 ## Data Augmentation
 The images undergo several augmentation techniques, such as:
 - Resizing
 - Normalization
 These augmentations help improve the model’s robustness and generalization.
+
+---
 
 ## Model Architecture
 The **FaceTracker** model consists of:
@@ -118,14 +135,22 @@ The model is compiled with the Adam optimizer and two loss functions:
 - **Binary Crossentropy Loss**: For the classification of the face.
 - **Localization Loss**: To calculate the difference between the predicted and true bounding box coordinates.
 
+---
+
 ## Training and Validation
 The model is trained using the augmented data, and the performance is evaluated on the validation dataset. TensorBoard is used for monitoring the loss and other metrics during training.
+
+---
 
 ## Evaluation
 The model is evaluated on the test dataset, and results are visualized with bounding boxes drawn around detected faces. If the model predicts a face with a high confidence score, a bounding box is drawn around the face on the image.
 
+---
+
 ## Real-Time Face Detection
 Once the model is trained, it is saved to a file (`facetracker.h5`). In real-time, the webcam feed is captured, and the model predicts the presence of a face and its bounding box coordinates. If a face is detected, it is highlighted with a bounding box drawn on the webcam frame. The program continues to display this output until the user presses the 'q' key to quit.
+
+---
 
 ## Key Features
 - **Image Preprocessing**: Includes image loading, resizing, and normalization.
@@ -135,6 +160,7 @@ Once the model is trained, it is saved to a file (`facetracker.h5`). In real-tim
 - **Training**: Optimized using Adam with binary crossentropy and localization loss.
 - **Real-Time Prediction**: Uses a webcam to perform real-time face tracking.
 
+---
+
 ## Conclusion
 The **FaceTracker** project provides a comprehensive solution for face detection and bounding box prediction. It leverages the power of deep learning, using a pre-trained **VGG16** model to efficiently extract features and predict bounding boxes for face detection. The real-time face detection capabilities make it an ideal solution for live video analysis, and the data augmentation techniques ensure that the model is robust and generalizes well across diverse scenarios. This project demonstrates how image augmentation, label handling, and efficient training pipelines can work together to create a high-performance object detection model.
-
